@@ -13,3 +13,25 @@ multiplot <- function (mat, logscale=F, ylim=c(min(mat), max(mat)), legend=F, na
     legend("topright", col=rbcol, legend=names, lty=1)
   }
 }
+
+# Print a progress bar while iterating over a population
+print.progressbar <- function (progress, size=40) {
+  cat("\r", "|")
+  for (p in 1:size-1) {
+    if (progress >= p) cat("=")
+    else cat(" ")
+  }
+  cat("|")
+  return(progress+1)
+}
+
+# Function to align model matrix with the number of cores available
+align_models <- function (models) {
+  num_cores <- detectCores()
+  if ((full_model_count %% num_cores) != 0) {
+    models <- c(models, rep(NA, (num_cores-(full_model_count %% num_cores))))
+  }
+  model_partitions <- matrix(models, num_cores, byrow=T)
+  return(model_partitions)
+}
+
