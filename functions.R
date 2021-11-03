@@ -28,8 +28,8 @@ print.progressbar <- function (progress, size=40) {
 # Function to align model matrix with the number of cores available
 align_models <- function (models) {
   num_cores <- detectCores()
-  if ((full_model_count %% num_cores) != 0) {
-    models <- c(models, rep(NA, (num_cores-(full_model_count %% num_cores))))
+  if ((length(models) %% num_cores) != 0) {
+    models <- c(models, rep(NA, (num_cores-(length(models) %% num_cores))))
   }
   model_partitions <- matrix(models, num_cores, byrow=T)
   return(model_partitions)

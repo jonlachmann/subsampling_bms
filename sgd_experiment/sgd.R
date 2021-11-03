@@ -11,7 +11,8 @@ full_model_count <- 32768
 
 logistic.loglik.bic <- function (y, x, model, complex, params) {
   suppressWarnings({mod <- glm.fit(as.matrix(x[,model]), y, family=binomial())})
-  ret <- -(mod$deviance/2) - (0.5 * mod$rank * log(length(y)))
+  #ret <- -(mod$deviance/2) - (0.5 * mod$rank * log(length(y)))
+  ret <- mod$deviance
   return(ret)
 }
 

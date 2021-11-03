@@ -13,8 +13,8 @@ run_sim <- function (x, y, loglik_fun, nobs, models, ...) {
   index <- 1
   for (i in models) {
     modelvector <- as.logical(c(T,intToBits(i)[1:15]))
-    loglik <- loglik_fun(y[1:nobs], x[1:nobs,], modelvector, ...)
-    res[[index]] <- list(prob=NA, model=modelvector[-1], crit=loglik, alpha=NA)
+    time <- microbenchmark(loglik <- loglik_fun(y[1:nobs], x[1:nobs,], modelvector, ...), times=1)$time
+    res[[index]] <- list(prob=time, model=modelvector[-1], crit=loglik, alpha=NA)
     if (index %% max(floor(length(models)/100),1) == 0) {
       progress <- print.progressbar(progress, 100)
       cat(worker_id)
