@@ -12,10 +12,10 @@ source("../runner_functions.R")
 source("../sgd_experiment/likelihoods.R")
 model_partitions <- align_models(1:(2^14))
 n_obs <- 241600
-name <- "full_sgemm2"
+name <- "full_sgemm3"
 directory <- "truth"
 
-run_multisim(sgemm[,(1:15)], sgemm[,20], linear.g.prior.loglik, model_partitions, n_obs, name, directory, params=list(g=241600))
+run_multisim(sgemm[,(1:15)], sgemm[,20], linear.g.prior.loglik, model_partitions, n_obs, name, directory, params=list(g=14^2))
 
 load("truth/full_sgemm.Rdata")
 
