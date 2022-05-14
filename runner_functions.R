@@ -12,7 +12,7 @@ run_sim <- function (x, y, loglik_fun, nobs, models, ...) {
   progress <- 0
   index <- 1
   for (i in models) {
-    modelvector <- as.logical(c(T,intToBits(i)[1:15]))
+    modelvector <- as.logical(c(T,intToBits(i)[1:(ncol(x)-1)]))
     time <- microbenchmark(loglik <- loglik_fun(y[1:nobs], x[1:nobs,], modelvector, ...), times=1)$time
     res[[index]] <- list(prob=time, model=modelvector[-1], crit=loglik, alpha=NA)
     if (index %% max(floor(length(models)/100),1) == 0) {

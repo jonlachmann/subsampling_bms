@@ -35,3 +35,12 @@ linear.g.prior.loglik.irlssgd <- function (y, x, model, complex, params) {
   logmarglik <- 0.5*(log(1+params$g)*(n-p) - log(1+params$g*(1-rsquared))*(n-1))*(p!=1)
   return(logmarglik)
 }
+
+linear.g.prior.loglik <- function (y, x, model, complex, params) {
+  mod <- fastglm(as.matrix(x[,model]), y, gaussian())
+  rsquared <- 1-sum(var(y-x[,model,drop=F]%*%mod$coefficients))/sum(var(y))
+  p <- mod$rank
+  n <- nrow(x)
+  logmarglik <- 0.5*(log(1+params$g)*(n-p) - log(1+params$g*(1-rsquared))*(n-1))*(p!=1)
+  return(logmarglik)
+}
