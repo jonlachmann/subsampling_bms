@@ -10,6 +10,13 @@ source("runner_functions.R")
 library(parallel)
 library(microbenchmark)
 library(irls.sgd)
+library(stochQN)
+library(fastglm)
+
+load("top1024.RData")
+
+library(Rcpp)
+sourceCpp("logistic.cpp")
 
 model_partitions <- align_models(top1024mods)
 n_obs <- 1000000

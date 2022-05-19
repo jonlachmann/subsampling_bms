@@ -11,6 +11,11 @@ logistic.loglik.bic.sgd <- function (y, x, model, maxit) {
   return(ret)
 }
 
+logistic.loglik.bic.sqn <- function (y, x, model) {
+  mod <- sqn.fit(as.matrix(x[,model]), y, 100, 200)
+  return(mod)
+}
+
 logistic.loglik.bic.irlssgd <- function (y, x, model) {
   mod <- irls.sgd(as.matrix(x[,model]), y, binomial(),
             irls.control=list(subs=0.001, maxit=75, tol=1e-7, cooling = c(3,0.9,0.95), expl = c(3,1.5,1)),
